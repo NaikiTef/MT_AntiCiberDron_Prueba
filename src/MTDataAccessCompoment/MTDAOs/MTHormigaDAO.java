@@ -1,0 +1,57 @@
+
+package MTDataAccessCompoment.MTDAOs;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import MTDataAccessCompoment.MTDATOs.MTVWHormigaDTO;
+import MTDataAccessCompoment.MTHelpers.MTDataHelperSQLiteDAO;
+import MTInfrastructureComponent.MTAppDataException;
+
+
+public class MTHormigaDAO extends MTDataHelperSQLiteDAO<MTVWHormigaDTO> {
+    public MTHormigaDAO() throws MTAppDataException {
+        super(MTVWHormigaDTO.class, "MTHormiga", "IdHormiga");
+    }
+
+    public List<MTVWHormigaDTO> readAll() throws MTAppDataException {
+        MTVWHormigaDTO dto;
+        List<MTVWHormigaDTO> lst = new ArrayList<>();
+        String query = " SELECT IdHormiga"
+                  +"  ,Tipo         "   
+                  +"  ,Sexo         "
+                  +"  ,EstadoHormiga"   
+                  +"  ,Nombre       "
+                  +"  ,Descripcion  "
+                  +"  ,Estado       "
+                  +"  ,FechaCreacion"   
+                  +"  ,FechaModifica" 
+                  +"  FROM MTvwHormiga";
+        try {
+            Connection conn = openConnection();         // conectar a DB     
+            Statement  stmt = conn.createStatement();   // CRUD : select * ...    
+            ResultSet rs   = stmt.executeQuery(query);  // ejecutar la
+            while (rs.next()) {
+                dto = new MTVWHormigaDTO(rs.getString(1)          // IdHormiga
+                                        ,rs.getString(2)        // Tipo            
+                                        ,rs.getString(3)        // Sexo        
+                                        ,rs.getString(4)        // EstadoHormiga 
+                                        ,rs.getString(5)        // Nombre 
+                                        ,rs.getString(6)        // Descripcion
+                                        ,rs.getString(7)        // Estado
+                                        ,rs.getString(8)        // FechaCreacion
+                                        ,rs.getString(9)        // FechaModifica
+                                      ); 
+                lst.add(dto);
+            }
+        } 
+        catch (SQLException e) {
+            throw new MTAppDataException(e, getClass(), "getVWHormiga()");
+        }
+        return lst;
+    }
+}
