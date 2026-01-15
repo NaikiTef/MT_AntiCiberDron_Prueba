@@ -5,9 +5,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
 import MTInfrastructureComponent.TMTools.MTCMDColor;
-import MTInfrastructureComponent.MTAppConfig;
 
 public abstract class MTAppException extends Exception {
     public MTAppException(Exception e, Class<?> clase, String metodo) {

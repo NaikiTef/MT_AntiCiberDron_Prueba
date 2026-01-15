@@ -1,60 +1,77 @@
 import java.util.Scanner;
-import java.util.logging.Logger;
-import MTDataAccessCompoment.MTDAOs.MTHormigaDAO;
-import MTDataAccessCompoment.MTDATOs.MTAlimentoTipoDTO;
-import MTDataAccessCompoment.MTDATOs.MTVWHormigaDTO;
-
-import MTAppComponent.TMConsoleApp.TMSistemRuso;
 import MTBussinessComponent.TMEntities.MTEntomologo;
+import MTBussinessComponent.TMEntities.MTHormiga;
+import MTBussinessComponent.TMEntities.MTAlimento;
+import MTDataAccessCompoment.MTDATOs.MTAlimentoTipoDTO;
 
 public class App {
-    
-    public static void main(String[] args) throws Exception{
-    //private static final Logger LOGGER = Logger.getLogger(App.class.getName());
-    // TMSistemRuso sistemaRuso = new TMSistemRuso();
-    // sistemaRuso.mtautenticacion();
-    
-
-
-    Scanner mtScanner = new Scanner(System.in);
+    public static void main(String[] args) {
+        Scanner mtScanner = new Scanner(System.in);
         
-        // 1. REQUERIMIENTO: Autenticación (patmic, 123) con máx 3 intentos
+        // --- REQUERIMIENTO 1: Autenticación ---
+        // Se solicita usuario "patmic" y contraseña "123" con máximo 3 intentos.
         boolean mtAutenticado = false;
         int mtIntentos = 0;
-        
-        System.out.println("--- SISTEMA ANTDRON2K25 ---");
+        final String MT_USER_VALIDO = "patmic";
+        final String MT_PASS_VALIDO = "123";
+
+        System.out.println("========================================");
+        System.out.println("   SISTEMA DE CONTROL ANTDRON2K25       ");
+        System.out.println("========================================");
+
         while (mtIntentos < 3 && !mtAutenticado) {
-            System.out.print("Usuario: ");
+            System.out.print("[?] Usuario: ");
             String mtUser = mtScanner.nextLine();
-            System.out.print("Contraseña: ");
+            System.out.print("[?] Contraseña: ");
             String mtPass = mtScanner.nextLine();
-            
-            if (mtUser.equals("patmic") && mtPass.equals("123")) {
+
+            if (mtUser.equals(MT_USER_VALIDO) && mtPass.equals(MT_PASS_VALIDO)) {
                 mtAutenticado = true;
-                // REQUERIMIENTO: Presentar cédula y nombre completo tras éxito
-                System.out.println("\nBienvenido: [TU NOMBRE] - Cédula: [TU CÉDULA]");
+                // Si la autenticación es válida, presentar cédula y nombre completo.
+                System.out.println("\n[OK] Acceso concedido.");
+                System.out.println("ESTUDIANTE 1 : [Victoria Yureisy Torres Quiñonez]");
+                System.out.println("CÉDULA     1 : [0850426867]");
+                System.out.println("ESTUDIANTE 2 : [Nikole Montaluisa]");
+                System.out.println("CÉDULA     2 : []");
             } else {
                 mtIntentos++;
-                System.out.println("Error. Intentos restantes: " + (3 - mtIntentos));
+                System.out.println("\u001B[31m[!] Credenciales incorrectas. Intentos: " + mtIntentos + "/3\u001B[0m");
             }
         }
 
         if (mtAutenticado) {
-            // 2. Probar el Entomólogo
-            // Creamos un DTO ficticio para inicializarlo
-            MTAlimentoTipoDTO mtDto = new MTAlimentoTipoDTO(); 
-            MTEntomologo mtEntomologo = new MTEntomologo(mtDto);
-            
-            // Ejecutamos la Cosecha (Proceso ETL con colores)
+            // --- INICIO DE PRUEBAS DE LÓGICA (CASO C) ---
+            // Se instancia el entomólogo con su DTO.
+            MTEntomologo mtEntomologo = new MTEntomologo(new MTAlimentoTipoDTO());
+
+            // 1. Ejecución del Proceso ETL (Requerimiento 2)
+            // Cosecha hormigas y comida mostrando loading y colores.
+            System.out.println("\n--- INICIANDO PROCESO ETL (CASO C: HZángano/Omnívoro) ---");
             mtEntomologo.Cosechar();
+
+            // 2. Ejecución de Alimentación y Evolución (Requerimiento 3)
+            System.out.println("\n--- PRUEBA DE ALIMENTACIÓN Y EVOLUCIÓN ---");
             
-            System.out.println("\n--- Pruebas finalizadas con éxito ---");
+            // Creamos una Larva inicial (Caso C requiere Omnívoro).
+            MTHormiga mtLarva = new MTHormiga("HLarva", "X", "Omnivoro");
+            MTAlimento mtComidaOmnivora = new MTAlimento("Omnivoro");
+            
+            System.out.println("Estado inicial:");
+            mtLarva.mtMostrarInfo();
+
+            // Alimentar: debe transformarse a HZángano y ganar superRastreo.
+            mtEntomologo.mtAlimentarAnt(mtLarva, mtComidaOmnivora);
+            
+            System.out.println("\nEstado final tras alimentación:");
+            mtLarva.mtMostrarInfo();
+
+            System.out.println("\n========================================");
+            System.out.println("     FIN DE LA PRUEBA - BIMESTRE II     ");
+            System.out.println("========================================");
         } else {
-            System.out.println("Acceso denegado. El sistema se cerrará.");
+            System.out.println("\u001B[31m[X] Sistema bloqueado por demasiados intentos fallidos.\u001B[0m");
         }
-        
+
         mtScanner.close();
     }
-
 }
-

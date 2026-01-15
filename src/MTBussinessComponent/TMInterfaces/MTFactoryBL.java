@@ -3,8 +3,6 @@ package MTBussinessComponent.TMInterfaces;
 import java.util.List;
 import MTDataAccessCompoment.MTInterfaces.MTIDataHelperSQLiteDAO;
 import MTInfrastructureComponent.MTAppException;
-import MTInfrastructureComponent.MTAppDataException;
-
 
 public class MTFactoryBL<T> {
     private final MTIDataHelperSQLiteDAO<T> oDAO;

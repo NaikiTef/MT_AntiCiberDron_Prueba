@@ -1,9 +1,4 @@
 package MTBussinessComponent.TMEntities;
-
-import MTDataAccessCompoment.MTDATOs.MTVWHormigaDTO;
-import MTBussinessComponent.TMInterfaces.MTFactoryBL;
-import MTDataAccessCompoment.MTDAOs.MTHormigaDAO;
-
 public class MTHormiga {
     // Atributos según el requerimiento y diagrama
     private String mtTipo;           // HLarva, HSoldado, etc.
