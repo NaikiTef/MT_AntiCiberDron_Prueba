@@ -28,7 +28,7 @@ public class TMSistemRuso {
     public Integer mtpassword = 123;
 
 
-    public void iniciarSesion() {
+    public void mtautenticacion() {
         int intentos = 3;
         while (intentos > 0) {
             try{
