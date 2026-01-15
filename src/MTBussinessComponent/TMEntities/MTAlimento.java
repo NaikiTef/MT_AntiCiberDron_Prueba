@@ -1,39 +1,14 @@
 package MTBussinessComponent.TMEntities;
 
 public class MTAlimento {
-    private String mtNombre;      // Ejemplo: "Nectarivoro", "Carnivoro"
-    private String mtTipo;        // Clase de alimento (Asexual, macho, hembra)
-    private String mtGenoma;      // El genoma inyectado (X, XX, XY) o null
+    private String mtNombre; // Caso C: Omnivoro
+    private String mtGenoma; // X, XX, XY
 
-    // Constructor básico
-    public MTAlimento(String mtNombre) {
+    public MTAlimento(String mtNombre, String mtGenoma) {
         this.mtNombre = mtNombre;
-        this.mtGenoma = "";
-    }
-
-    // --- Getters y Setters ---
-
-    public String getMtNombre() {
-        return mtNombre;
-    }
-
-    public void setMtNombre(String mtNombre) {
-        this.mtNombre = mtNombre;
-    }
-
-    public String getMtGenoma() {
-        return mtGenoma;
-    }
-
-    public void setMtGenoma(String mtGenoma) {
         this.mtGenoma = mtGenoma;
     }
 
-    public String getMtTipo() {
-        return mtTipo;
-    }
-
-    public void setMtTipo(String mtTipo) {
-        this.mtTipo = mtTipo;
-    }
+    public String getMtNombre() { return mtNombre; }
+    public String getMtGenoma() { return mtGenoma; }
 }
