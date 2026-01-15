@@ -1,9 +1,6 @@
 package MTBussinessComponent.TMEntities;
 
 import MTDataAccessCompoment.MTDATOs.MTHormigaDTO;
-
-import java.util.List;
-
 import MTBussinessComponent.TMInterfaces.MTFactoryBL;
 
 
